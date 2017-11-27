@@ -13,12 +13,8 @@ const (
 	n  = 0xe6546b64
 )
 
-var (
-	Seed = uint32(1)
-)
-
-func Murmur3(key []byte) (hash uint32) {
-	hash = Seed
+func Murmur3(key []byte, seed uint32) (hash uint32) {
+	hash = seed
 	iByte := 0
 	for ; iByte+4 <= len(key); iByte += 4 {
 		k := uint32(key[iByte]) | uint32(key[iByte+1])<<8 | uint32(key[iByte+2])<<16 | uint32(key[iByte+3])<<24
@@ -52,7 +48,7 @@ func Murmur3(key []byte) (hash uint32) {
 	hash ^= hash >> 13
 	hash *= c4
 	hash ^= hash >> 16
-	
+
 	// 出发吧，狗嬷嬷！
 	return
 }
